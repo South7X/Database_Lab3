@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>预约记录</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">SecHouse二手房平台</a>
+	</div>
+	<div>
+		<ul class="nav navbar-nav">
+
+            <li ><a href="/index/">Home</a></li>
+            {% if request.session.type == '0' %}
+
+                <li><a href="/mystar/">我的收藏</a></li>
+                <li><a href="/book/">我的预约</a></li>
+            {% elif request.session.type == '1' %}
+                <li><a href="/publish/">发布房源</a></li>
+                <li><a href="/mypublish/">我的发布</a></li>
+                <li class="active"><a href="/bookrecord/">预约记录</a></li>
+            {% else %}
+
+            {% endif %}
+
+		</ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if request.session.type == '0' or request.session.type == '1'%}
+              <div>
+                <p class="navbar-text">Welcome, {{ request.session.username }}</p>
+                  <a href="/logout/"><p class="navbar-text">退出登录</p></a>
+              </div>
+          {% else %}
+              <div>
+                <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
+              </div>
+          {% endif %}
+
+        </ul>
+	</div>
+	</div>
+</nav>
+<body>
+
+<div class="container">
+    <table class="table table-striped">
+{#        <caption>条纹表格布局</caption>#}
+        <thead>
+            <tr>
+                <th>被预约房源</th>
+                <th>预约人姓名</th>
+                <th>预约人电话</th>
+                <th>预约时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.house_name }}</td>
+                <td>{{ book.buyer_name }}</td>
+                <td>{{ book.buyer_phone }}</td>
+                <td>{{ book.book_time }}</td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

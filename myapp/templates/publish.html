@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>发布房源</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">SecHouse二手房平台</a>
+	</div>
+	<div>
+		<ul class="nav navbar-nav">
+
+            <li><a href="/index/" >Home</a></li>
+            {% if request.session.type == '0' %}
+
+                <li><a href="/star/">我的收藏</a></li>
+            {% elif request.session.type == '1' %}
+                <li class="active"><a href="/publish/"  >发布房源</a></li>
+                <li><a href="/mypublish/">我的发布</a></li>
+                <li><a href="/bookrecord/">预约记录</a></li>
+            {% else %}
+
+            {% endif %}
+
+		</ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if request.session.type == '0' or request.session.type == '1'%}
+              <div>
+                <p class="navbar-text">Welcome, {{ request.session.username }}</p>
+                  <a href="/logout/"><p class="navbar-text">退出登录</p></a>
+              </div>
+          {% else %}
+                <a href="/login/"><span class="glyphicon glyphicon-log-in"></span>登录</a>
+          {% endif %}
+
+        </ul>
+	</div>
+	</div>
+</nav>
+  <body class="bg-light">
+
+<div class="container">
+
+    <div class="align-self-center">
+      <form action="/publish/" method="post"> {% csrf_token %}
+        <div class="mb-3">
+          <label for="house_name">房源描述</label>
+            <input type="text" class="form-control" id="house_name" name="house_name" placeholder="请输入该房源描述" required>
+
+        </div>
+
+        <div class="mb-3">
+          <label for="price">价格</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="请输入房源价格（单位：元）" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="size">面积</label>
+          <input type="number" class="form-control" id="size" name="size" placeholder="请输入房源面积（单位：平方米）" required>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="type">房型</label>
+              <div class="custom-control custom-radio">
+                <input id = "one_room" name="type" type="radio" class="custom-control-input" value="0" required>
+                <label class="custom-control-label" for="male">一室</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id = "two_room" name="type" type="radio" class="custom-control-input" value="1" required>
+                <label class="custom-control-label" for="female">二室</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id = "three_room" name="type" type="radio" class="custom-control-input" value="2" required>
+                <label class="custom-control-label" for="female">三室</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id = "more" name="type" type="radio" class="custom-control-input" value="3" required>
+                <label class="custom-control-label" for="female">四室及以上</label>
+              </div>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="ownership">权属</label>
+              <div class="custom-control custom-radio">
+                <input id = "common" name="ownership" type="radio" class="custom-control-input" value="0" required>
+                <label class="custom-control-label" for="male">商品房</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id = "public" name="ownership" type="radio" class="custom-control-input" value="1" required>
+                <label class="custom-control-label" for="female">公房</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id = "cheap" name="ownership" type="radio" class="custom-control-input" value="2" required>
+                <label class="custom-control-label" for="female">经适房</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id = "others" name="ownership" type="radio" class="custom-control-input" value="3" required>
+                <label class="custom-control-label" for="female">其他</label>
+              </div>
+            </div>
+
+        <div class="mb-3">
+            <label for="decoration">装修类型</label>
+          <div class="custom-control custom-radio">
+            <input id = "perfect" name="decoration" type="radio" class="custom-control-input" value="0" required>
+            <label class="custom-control-label" for="male">精装修</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id = "normal" name="decoration" type="radio" class="custom-control-input" value="1" required>
+            <label class="custom-control-label" for="female">普通装修</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id = "none" name="decoration" type="radio" class="custom-control-input" value="2" required>
+            <label class="custom-control-label" for="female">毛胚房</label>
+          </div>
+        </div>
+            </div>
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">发布</button>
+      </form>
+    </div>
+
+
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../static/js/bootstrap.bundle.min.js"></script>
+
+
+        <script src="../static/js/form-validation.js"></script>
+  </body>
+</html>

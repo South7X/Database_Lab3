@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>我的发布</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function concel(id){
+        $.ajax({
+            url:'/concelpublish/',
+            type:'POST',
+            data:{
+                'housename':$('.house').eq(id).text()
+            },
+            success:function (data) {
+                {#$(this).eq(id).class('active')#}
+                alert("取消发布成功！");
+                location.reload();
+            }
+        })
+
+    }
+    </script>
+</head>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="container-fluid">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">SecHouse二手房平台</a>
+	</div>
+	<div>
+		<ul class="nav navbar-nav">
+
+            <li ><a href="/index/">Home</a></li>
+            {% if request.session.type == '0' %}
+
+                <li ><a href="/mystar/">我的收藏</a></li>
+                <li><a href="/book/">我的预约</a></li>
+            {% elif request.session.type == '1' %}
+                <li><a href="/publish/">发布房源</a></li>
+                <li class="active"><a href="/mypublish/">我的发布</a></li>
+                <li><a href="/bookrecord/">预约记录</a></li>
+            {% else %}
+
+            {% endif %}
+
+		</ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if request.session.type == '0' or request.session.type == '1'%}
+              <div>
+                <p class="navbar-text">Welcome, {{ request.session.username }}</p>
+                  <a href="/logout/"><p class="navbar-text">退出登录</p></a>
+              </div>
+          {% else %}
+              <div>
+                <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span>登录</a></li>
+              </div>
+          {% endif %}
+
+        </ul>
+	</div>
+	</div>
+</nav>
+<body>
+
+<div class="container">
+    <table class="table table-striped">
+{#        <caption>条纹表格布局</caption>#}
+        <thead>
+            <tr>
+                <th>描述</th>
+                <th>价格</th>
+                <th>面积</th>
+                <th>房型</th>
+                <th>权属</th>
+                <th>装修</th>
+                <th>发布时间</th>
+                <th>取消发布</th>
+            </tr>
+        </thead>
+        <tbody>
+{#            {{ house_list }}#}
+            {% for pub in pub_list %}
+            <tr>
+                <td class="house" id="house">{{ pub.house.house_name }}</td>
+                {% if pub.house.house_price == None%}
+                    <td>无</td>
+                {% else %}
+                    <td>{{ pub.house.house_price }}元</td>
+                {% endif %}
+
+                {% if pub.house.house_size == None%}
+                    <td>无</td>
+                {% else %}
+                    <td>{{ pub.house.house_size }}平方米</td>
+                {% endif %}
+                <td>{{ pub.house.housetype.housetype_name }}</td>
+                <td>{{ pub.house.ownership.ownership_type }}</td>
+                <td>{{ pub.house.decoration.decoration_type }}</td>
+                <td>{{ pub.publish_time }}</td>
+                <td>
+                     <button class="btn btn-default" name="concel" id="concel" onclick="concel({{ forloop.counter0 }})">取消</button>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

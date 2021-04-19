@@ -1,0 +1,245 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>注册</title>#}
+{#</head>#}
+{#<body>#}
+{#<h1>注册</h1>#}
+{#    <form action="/register/" method="post">#}
+{#     {% csrf_token %}#}
+{#      <div>#}
+{##}
+{#      <p>用户名<input type="text" name="username" value="{{ username }}"></p>#}
+{#      </div>#}
+{#        <span>#}
+{#      <p>密码<input type="password" name="password" value="{{ password }}"></p>#}
+{#            </span>#}
+{#      <p>用户类型#}
+{#        <input type="radio" name="type" value="0">Buyer#}
+{#        <input type="radio" name="type" value="1">Agency</p>#}
+{#      <p>姓名<input type="text" name="name" value="{{ name }}"></p>#}
+{#      <p>性别#}
+{#            <input type="radio" name="gender" value="0">男#}
+{#            <input type="radio" name="gender" value="1">女</p>#}
+{#      <p>手机号码<input type="text" name="phone" value="{{ phone }}"></p>#}
+{#      <p>中介公司<input type="text" name="company" value="{{ company }}"></p>#}
+{#      <input type="submit" value="Submit">#}
+{#    </form>#}
+{#    {{ status }}#}
+{#</body>#}
+{#</html>#}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>注册</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/checkout/">
+
+
+
+    <!-- Bootstrap core CSS -->
+<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/form-validation.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+
+<div class="container">
+  <div class="py-5 text-center">
+{#    <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">#}
+    <h2>注册</h2>
+{#    <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>#}
+  </div>
+
+{#  <div class="row">#}
+{#    <div class="col-md-4 order-md-2 mb-4">#}
+{#      <h4 class="d-flex justify-content-between align-items-center mb-3">#}
+{#        <span class="text-muted">Your cart</span>#}
+{#        <span class="badge badge-secondary badge-pill">3</span>#}
+{#      </h4>#}
+{#      <ul class="list-group mb-3">#}
+{#        <li class="list-group-item d-flex justify-content-between lh-condensed">#}
+{#          <div>#}
+{#            <h6 class="my-0">Product name</h6>#}
+{#            <small class="text-muted">Brief description</small>#}
+{#          </div>#}
+{#          <span class="text-muted">$12</span>#}
+{#        </li>#}
+{#        <li class="list-group-item d-flex justify-content-between lh-condensed">#}
+{#          <div>#}
+{#            <h6 class="my-0">Second product</h6>#}
+{#            <small class="text-muted">Brief description</small>#}
+{#          </div>#}
+{#          <span class="text-muted">$8</span>#}
+{#        </li>#}
+{#        <li class="list-group-item d-flex justify-content-between lh-condensed">#}
+{#          <div>#}
+{#            <h6 class="my-0">Third item</h6>#}
+{#            <small class="text-muted">Brief description</small>#}
+{#          </div>#}
+{#          <span class="text-muted">$5</span>#}
+{#        </li>#}
+{#        <li class="list-group-item d-flex justify-content-between bg-light">#}
+{#          <div class="text-success">#}
+{#            <h6 class="my-0">Promo code</h6>#}
+{#            <small>EXAMPLECODE</small>#}
+{#          </div>#}
+{#          <span class="text-success">-$5</span>#}
+{#        </li>#}
+{#        <li class="list-group-item d-flex justify-content-between">#}
+{#          <span>Total (USD)</span>#}
+{#          <strong>$20</strong>#}
+{#        </li>#}
+{#      </ul>#}
+{##}
+{#      <form class="card p-2">#}
+{#        <div class="input-group">#}
+{#          <input type="text" class="form-control" placeholder="Promo code">#}
+{#          <div class="input-group-append">#}
+{#            <button type="submit" class="btn btn-secondary">Redeem</button>#}
+{#          </div>#}
+{#        </div>#}
+{#      </form>#}
+{#    </div>#}
+    <div class="align-self-center">
+      <form action="/register/" method="post"> {% csrf_token %}
+        <div class="mb-3">
+          <label for="name">姓名</label>
+          <div class="input-group">
+
+            <input type="text" class="form-control" id="name" name="name" placeholder="请输入您的姓名" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="username">用户名/昵称</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+                <input type="text" class="form-control" id="username" name="username" placeholder="请输入您的用户名" required>
+{#            <input type="text" class="form-control" id="username" value="{{ username }}" placeholder="请输入您的用户名" required>#}
+            <div class="invalid-feedback" style="width: 100%;">
+              Your username is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password">密码</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" name="password" placeholder="请设置密码" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your password is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone">手机号码</label>
+          <input type="text" class="form-control" id="phone" name="phone" placeholder="请输入您的手机号码" required>
+          <div class="invalid-feedback">
+            Please enter your phone number.
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="sex">性别</label>
+              <div class="custom-control custom-radio">
+                <input id = "male" name="sex" type="radio" class="custom-control-input" value="0" required>
+                <label class="custom-control-label" for="male">男</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id = "female" name="sex" type="radio" class="custom-control-input" value="1" required>
+                <label class="custom-control-label" for="female">女</label>
+              </div>
+            </div>
+            <span></span>
+            <div class="col-md-6 mb-3">
+                <label for="type">用户类型</label>
+              <div class="custom-control custom-radio">
+                <input id="buyer" name="type" type="radio" class="custom-control-input" value="0" required>
+                <label class="custom-control-label" for="buyer">我来购房/看房</label>
+              </div>
+
+              <div class="custom-control custom-radio">
+                <input id="agency" name="type" type="radio" class="custom-control-input" value="1" required>
+                <label class="custom-control-label" for="agency">我是中介</label>
+              </div>
+            </div>
+        </div>
+
+        <hr class="mb-4">
+
+        <h4 class="mb-3">中介选填</h4>
+        <div class="mb-3">
+          <label for="company">所属中介公司</label>
+          <input type="text" class="form-control" id="company" name="company" placeholder="请输入您所属的中介公司">
+        </div>
+
+        <div class="mb-3">
+          <label for="address">公司地址</label>
+          <input type="text" class="form-control" id="address" name="address" placeholder="请输入该公司地址">
+        </div>
+
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">注册提交</button>
+      </form>
+
+</div>
+    {% if messages %}
+    <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+    {% endif %}
+
+    </div>
+{#  </div>#}
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2021 Xiang</p>
+  </footer>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../static/js/bootstrap.bundle.min.js"></script>
+
+
+        <script src="../static/js/form-validation.js"></script>
+  </body>
+</html>
