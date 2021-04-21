@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Userinfo, Usertype, Bookhouse, Buyer, \
     Agencycomp, Agencyinfo, Decoration, Houseinfo, Housetype, \
     Ownership, Publishhouse, Starhouse
+import random, string
 # Create your views here.
 import time
 import re
@@ -28,7 +29,7 @@ def register(request):
         if Userinfo.objects.filter(user_no=username):
             messages.error(request, '用户名已存在')
             return HttpResponseRedirect('/register/')
-        if re.match(r'^d{11}$', phone) is None:
+        if re.match(r'[0-9]{11}$', phone) is None:
             messages.error(request, '手机号码格式错误')
             return HttpResponseRedirect('/register/')
         user = Userinfo(user_no=username,user_psw=password)
@@ -79,9 +80,10 @@ def login(request):
 
                 return redirect('/index/')
             else:
-                return HttpResponse("Password incorrect")
-        return HttpResponse("It is not a user, %s" % username)
-
+                messages.error(request, '密码错误！')
+                return HttpResponseRedirect('/login/')
+        messages.error(request, '用户不存在！')
+        return HttpResponseRedirect('/login/')
     return render(request,'login.html')
 
 
@@ -127,8 +129,8 @@ def publish(request):
         deco = Decoration(decoration_id=decoration, decoration_type=decoration_dic[decoration])
         deco.save()
 
-        length = Houseinfo.objects.count()
-        house = Houseinfo(house_id=str(length+1), house_name=house_name, house_price=price, house_size=size)
+        house_id = ''.join(random.sample(string.ascii_letters + string.digits, 10))
+        house = Houseinfo(house_id=house_id, house_name=house_name, house_price=price, house_size=size)
         house.housetype = housetype
         house.decoration = deco
         house.ownership = houseowner

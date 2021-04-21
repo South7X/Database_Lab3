@@ -80,8 +80,14 @@
     <br>
 <a href="/register/">
     <button class="btn btn-lg btn-success btn-block">注册</button></a>
+    {% if messages %}
+        <script>
+            {% for msg in messages %}
+                alert('{{ msg.message }}');
+            {% endfor %}
+        </script>
+    {% endif %}
         <p class="mt-5 mb-3 text-muted">&copy; Xiang 2021</p>
-
     </div>
 
 
